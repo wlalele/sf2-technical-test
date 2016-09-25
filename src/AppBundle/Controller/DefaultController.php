@@ -71,15 +71,19 @@ class DefaultController extends Controller
         if ($request->isMethod('POST')) {
             // create comment
             $repository = $request->request->get('repository');
-            $content = $request->request->get('comment');
 
-            $comment = new Comment();
-            $comment->setAuthor($this->getUser());
-            $comment->setContent($content);
-            $comment->setRepository($repository);
+            $user = strstr($repository, '/', true);
+            if ($user == $username) {
+                $content = $request->request->get('comment');
 
-            $em->persist($comment);
-            $em->flush();
+                $comment = new Comment();
+                $comment->setAuthor($this->getUser());
+                $comment->setContent($content);
+                $comment->setRepository($repository);
+
+                $em->persist($comment);
+                $em->flush();
+            }
         }
 
         $repositories = $this->getUserRepositories($username);
