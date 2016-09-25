@@ -6,13 +6,22 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class DefaultControllerTest extends WebTestCase
 {
-    public function testIndex()
+    private $client = null;
+
+    public function setUp()
     {
-        $client = static::createClient();
+        $this->client = static::createClient();
+    }
 
-        $crawler = $client->request('GET', '/');
+    public function testRedirectionToLoginWhenAccessingHomepage()
+    {
+        $this->client->request('GET', '/');
+        $this->assertRegExp('/\/login$/', $this->client->getResponse()->headers->get('location'));
+    }
 
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        $this->assertContains('Welcome to Symfony', $crawler->filter('#container h1')->text());
+    public function testRedirectionToLoginWhenAccessingCommentPage()
+    {
+        $this->client->request('GET', '/wlalele/comment');
+        $this->assertRegExp('/\/login$/', $this->client->getResponse()->headers->get('location'));
     }
 }
