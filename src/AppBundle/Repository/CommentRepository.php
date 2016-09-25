@@ -10,4 +10,13 @@ namespace AppBundle\Repository;
  */
 class CommentRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findByGithubUsername($username)
+    {
+        $qb = $this->createQueryBuilder('c');
+
+        $qb->where(
+            $qb->expr()->like('c.repository', $qb->expr()->literal($username.'/%'))
+        );
+        return $qb->getQuery()->getResult();
+    }
 }

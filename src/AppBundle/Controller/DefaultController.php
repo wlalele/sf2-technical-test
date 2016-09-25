@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Comment;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -59,22 +60,35 @@ class DefaultController extends Controller
      */
     public function commentAction($username)
     {
-        /** @var Request $request */
-        $request = $this->get('request_stack')->getCurrentRequest();
-
-        if ($request->isMethod('POST')) {
-            // create comment
-        }
-
         if (!$this->isOnGithub($username)) {
             $this->redirect('homepage');
         }
 
+        /** @var Request $request */
+        $request = $this->get('request_stack')->getCurrentRequest();
+        $em = $this->getDoctrine()->getManager();
+
+        if ($request->isMethod('POST')) {
+            // create comment
+            $repository = $request->request->get('repository');
+            $content = $request->request->get('comment');
+
+            $comment = new Comment();
+            $comment->setAuthor($this->getUser());
+            $comment->setContent($content);
+            $comment->setRepository($repository);
+
+            $em->persist($comment);
+            $em->flush();
+        }
+
         $repositories = $this->getUserRepositories($username);
+        $comments = $em->getRepository('AppBundle:Comment')->findByGithubUsername($username);
 
         return $this->render('default/comment.html.twig', [
             'username' => $username,
             'repositories' => $repositories,
+            'comments' => $comments
         ]);
     }
 }

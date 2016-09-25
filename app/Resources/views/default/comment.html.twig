@@ -1,6 +1,16 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+
+    {% if comments|length > 0 %}
+        <div class="container">
+            {% for comment in comments %}
+                <div>[{{ comment.date.format('Y-m-d H:i:s') }}] {{ comment.author }} commented about this repo : {{ comment.repository }}</div>
+                <div>{{ comment.content }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
     <div class="container">
         <h2>Add comment</h2>
 
@@ -11,7 +21,9 @@
             <div>
                 <select name="repository" autofocus>
                     {% for repository in repositories %}
-                        <option value="{{ repository.id }}">{{ repository.name }}</option>
+                        <option value="{{ repository.full_name }}">
+                            {{ repository.name }}
+                        </option>
                     {% endfor %}
                 </select>
             </div>
