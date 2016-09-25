@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <h2>Add comment</h2>
+
+        <form method="post" id="comment-form">
+            <div>
+                {{ username }}
+            </div>
+            <div>
+                <select name="repository" autofocus>
+                    {% for repository in repositories %}
+                        <option value="{{ repository.id }}">{{ repository.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <label for="comment">Set comment:</label>
+            </div>
+            <div>
+                <textarea name="comment" id="comment" cols="30" rows="10"></textarea>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary">
+                    Submit
+                </button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
