@@ -31,7 +31,7 @@ https://api.github.com/search/users
 * Une fois le champ de recherche validé et l'utilisateur sélectionné, on arrive sur l'url /{username}/comment, on affiche un formulaire qui sera composé des champs suivants : un champ texte pour le nom d'un dépôt ({user}/{repos}, e.g : stadline/sf2-technical-test), un textArea pour le commentaire, un bouton valider permettant d'ajouter un commentaire. OK
 * On affichera en dessous la liste des commentaires déjà saisis pour l'utilisateur. OK
 * Lors de la validation du formulaire, on vérifiera que le repository sélectionné est bien un dépôt appartenant à l'utilisateur précédement recherché. OK
-* On attend aussi de vous que le code soit testable et testé. NOK
+* On attend aussi de vous que le code soit testable et testé. OK en partie
 
 ### Bonus
 
@@ -73,6 +73,18 @@ Création de l'entité Comment + sauvegarde du commentaire + affichage des comme
 * Problème : Pas vraiment de problème si ce n'est que j'ai mal analysé la demande et que je suis beaucoup revenu sur mon entité Comment (2~3 fois)
 
 Etat des lieux:
-Pas de tests et pas de front qui fait plaisir aux yeux. Autant pour les tests j'avoue être inexpérimenté et je pense que si j'en fais je vais prendre du temps, autant le front j'ai mal géré, je n'ai même pas eu le temps de mettre bootstrap pour faire un truc potable
 
-Resultat des courses, je suis déçu de ne pas avoir réussi à faire quelque-chose de bien, je vais peut-être passer encore un peu de temps dessus pour faire un front et des tests éventuellements. 
+Pas de tests et pas de front qui fait plaisir aux yeux. Autant pour les tests j'avoue être inexpérimenté et je pense que si j'en fais je vais prendre du temps, autant le front j'ai mal géré, je n'ai même pas eu le temps de mettre bootstrap pour faire un truc potable. Je suis déçu de ne pas avoir réussi à faire quelque-chose de bien, je vais peut-être passer encore un peu de temps dessus pour faire un front et des tests éventuellements. 
+
+---
+Suite:
+
+Integration bootstrap pour faire une interface a minima potable
+* Durée : < 1H
+* Problème : Aucun
+
+Création de tests avec phpunit + Separation controller et service github + Separation tests controller et service
+* Durée : 1H environ
+* Problème : Je n'arrive pas a tester la redirection vers la homepage lorsque l'on tente d'acceder a un compte github inexistant, j'ai bien un client connecté pour les tests mais la redirection codée dans le controller ne se fait pas. J'ai passé un peu plus de temps sur les tests mais ça vallait le coup
+
+Temps passé sur le test technique : ~4H + ~2H = **entre 6H ~ 6H30**
