@@ -28,7 +28,7 @@ class DefaultController extends Controller
     {
         $github = $this->get('app.github');
         if (!$github->isOnGithub($username)) {
-            $this->redirect('homepage');
+            return $this->redirect($this->generateUrl('homepage'));
         }
 
         /** @var Request $request */

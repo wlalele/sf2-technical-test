@@ -71,9 +71,6 @@ class DefaultControllerTest extends WebTestCase
         );
     }
 
-    /**
-     * not working - no redirect operated by the controller, i don't know why
-     */
     public function testRedirectionWhenAccessingCommentPageWithWrongUsername()
     {
         $this->auth_client->followRedirects();
